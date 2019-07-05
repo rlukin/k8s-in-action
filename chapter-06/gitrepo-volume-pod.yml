@@ -13,6 +13,22 @@ spec:
     ports:
     - containerPort: 80
       protocol: TCP
+  - image: openweb/git-sync
+    name: git-sync
+    volumeMounts:
+    - name: html
+      mountPath: /git
+    env:
+    - name: GIT_SYNC_REPO
+      value: "https://github.com/rlukin/k8s-in-action.git"
+    - name: GIT_SYNC_DEST
+      value: "/git"
+    - name: GIT_SYNC_BRANCH
+      value: "master"
+    - name: GIT_SYNC_REV
+      value: "FETCH_HEAD"
+    - name: GIT_SYNC_WAIT
+      value: "10" 
   volumes:
   - name: html
     gitRepo:
